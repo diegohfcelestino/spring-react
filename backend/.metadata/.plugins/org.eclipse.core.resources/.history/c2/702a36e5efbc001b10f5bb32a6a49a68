@@ -1,0 +1,5 @@
+package br.com.diegohfcelestino.myinvest.resources;
+
+public class CategoriaResource {
+
+}
