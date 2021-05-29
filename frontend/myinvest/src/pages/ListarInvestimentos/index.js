@@ -1,6 +1,5 @@
 import "antd/dist/antd.css";
 import { Table, Button, message, Layout, Menu } from 'antd';
-import { render } from "@testing-library/react";
 import { Link } from "react-router-dom";
 import { useState } from "react"
 

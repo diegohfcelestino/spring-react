@@ -7,7 +7,7 @@ export default function Routes() {
         <BrowserRouter>
             <Switch>
                 <Route exact path="/" component={ListarInvestimentos} />
-                <Route exact path="/cadastrar-investimentos" component={CadastrarInvestimento} />
+                <Route exact path="/cadastrar-investimento" component={CadastrarInvestimento} />
                 <Route exact path="/listar-investimentos" component={ListarInvestimentos} />
             </Switch>
         </BrowserRouter>

@@ -1,5 +1,6 @@
 import { Form, Button, message, DatePicker, Layout, Menu, Input, InputNumber } from 'antd';
 import { Link } from "react-router-dom";
+import investimentoService from '../../services/investimentoService';
 
 const { Header, Content, Footer } = Layout;
 
@@ -20,6 +21,7 @@ export default function CadastrarInvestimento() {
     };
 
     const onFinish = (values) => {
+        investimentoService.saveInvestimento(values);
         message.success("Investimento salvo com sucesso")
     }
 
@@ -104,6 +106,19 @@ export default function CadastrarInvestimento() {
                                 ]}
                             >
                                 <DatePicker />
+                            </Form.Item>
+
+                            <Form.Item
+                                label="Categoria"
+                                name="categoria"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: "Insira a categoria da cota",
+                                    },
+                                ]}
+                            >
+                                <Input />
                             </Form.Item>
 
                             <Form.Item {...tailLayout}>
