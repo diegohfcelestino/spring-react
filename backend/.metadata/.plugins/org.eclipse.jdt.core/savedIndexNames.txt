@@ -85,7 +85,6 @@ INDEX VERSION 1.131+C:\projetos\spring-react\backend\.metadata\.plugins\org.ecli
 515591065.index
 3044972064.index
 3889027065.index
-2855289985.index
 677927871.index
 105052231.index
 1428163497.index

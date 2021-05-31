@@ -1,10 +1,32 @@
-import { Form, Button, message, DatePicker, Layout, Menu, Input, InputNumber } from 'antd';
+import { Form, Button, message, DatePicker, Layout, Menu, Input, InputNumber, Select } from 'antd';
+import { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
-import investimentoService from '../../services/investimentoService';
+import CategoriaService from '../../service/CategoriaService';
+import InvestimentoService from '../../service/InvestimentoService';
 
 const { Header, Content, Footer } = Layout;
+const { Option } = Select;
 
 export default function CadastrarInvestimento() {
+
+    const [categorias, setCategorias] = useState([]);
+    const [categoria, setCategoria] = useState(null);
+
+    useEffect(() => {
+        refreshCategorias();
+        return () => {
+
+        }
+    }, [])
+
+    async function refreshCategorias() {
+        CategoriaService.retrieveAllCategorias()
+            .then(
+                response => {
+                    setCategorias(response.data)
+                }
+            )
+    }
 
     const layout = {
         labelCol: {
@@ -21,13 +43,17 @@ export default function CadastrarInvestimento() {
     };
 
     const onFinish = (values) => {
-        investimentoService.saveInvestimento(values);
+        InvestimentoService.saveInvestimento(values);
         message.success("Investimento salvo com sucesso")
     }
 
     const onFinishFailed = (erroInfo) => {
         message.danger("Investimento salvo com sucesso")
         console.log("Failed:", erroInfo)
+    }
+
+    function handleChange(value) {
+        setCategoria(value);
     }
 
     return (
@@ -73,7 +99,7 @@ export default function CadastrarInvestimento() {
 
                             <Form.Item
                                 label="Valor"
-                                name="valor"
+                                name="valorCota"
                                 rules={[
                                     {
                                         required: true,
@@ -81,7 +107,7 @@ export default function CadastrarInvestimento() {
                                     },
                                 ]}
                             >
-                                <Input />
+                                <InputNumber />
                             </Form.Item>
                             <Form.Item
                                 label="Quantidade de Cotas"
@@ -111,14 +137,17 @@ export default function CadastrarInvestimento() {
                             <Form.Item
                                 label="Categoria"
                                 name="categoria"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: "Insira a categoria da cota",
-                                    },
-                                ]}
+
                             >
-                                <Input />
+                                <Select onChange={handleChange}>
+                                    {categorias.map((item, index) => {
+                                        return (
+                                            <Option key={item.id} value={item.id}>
+                                                {item.nome}
+                                            </Option>
+                                        )
+                                    })}
+                                </Select>
                             </Form.Item>
 
                             <Form.Item {...tailLayout}>
